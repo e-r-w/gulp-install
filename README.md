@@ -114,6 +114,22 @@ gulp.src(__dirname + '/templates/**')
   .pipe(install({noOptional: true}));
 ```
 
+### options.npmRegistry
+
+**Type:** `String`
+
+Set an npm registry address if `npm install` should be appended with the `--registry` parameter which will install npm packages from the specified registry.
+
+**Example:**
+
+```javascript
+var install = require("gulp-install");
+
+gulp.src(__dirname + '/templates/**')
+  .pipe(gulp.dest('./'))
+  .pipe(install({npmRegistry: 'http://some.private.registry/'}));
+```
+
 ### options.allowRoot
 
 **Type:** `Boolean`

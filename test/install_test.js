@@ -108,6 +108,31 @@ describe('gulp-install', function () {
     stream.end();
   });
 
+  it('should run `npm install --registry` if stream contains `package.json` and `npmRegistry` option is set', function (done) {
+    var file = fixture('package.json');
+
+    var stream = install({npmRegistry: 'http://some.private.registry'});
+
+    stream.on('error', function(err) {
+      should.exist(err);
+      done(err);
+    });
+
+    stream.on('data', function () {
+    });
+
+    stream.on('end', function () {
+      commandRunner.run.called.should.equal(1);
+      commandRunner.run.commands[0].cmd.should.equal('npm');
+      commandRunner.run.commands[0].args.should.eql(['install', '--registry=http://some.private.registry']);
+      done();
+    });
+
+    stream.write(file);
+
+    stream.end();
+  });
+
 
   it('should run `bower install --config.interactive=false` if stream contains `bower.json`', function (done) {
     var file = fixture('bower.json');

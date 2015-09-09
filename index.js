@@ -48,6 +48,9 @@ module.exports = exports = function install(opts) {
         if (cmd.cmd === 'npm' && opts && opts.noOptional) {
           cmd.args.push('--no-optional');
         }
+        if (cmd.cmd === 'npm' && opts && opts.npmRegistry) {
+          cmd.args.push('--registry=' + opts.npmRegistry);
+        }
 
         cmd.cwd = path.dirname(file.path);
         toRun.push(cmd);
